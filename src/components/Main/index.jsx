@@ -1,11 +1,16 @@
-import React, { Component } from 'react';
-import uuid from 'uuid';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import uuid from 'uuid'
 import MessageList from '../MessageList'
-import InputText from '../InputText';
-import ProfileBar from '../ProfileBar';
+import InputText from '../InputText'
+import ProfileBar from '../ProfileBar'
+
+const propTypes = {
+  user: PropTypes.object.isRequired
+}
 
 class Main extends Component {
-  constructor(props){
+  constructor (props) {
     super(props)
     this.state = {
       user: Object.assign({}, this.props.user, { retweets: [] }, { favorites: [] }),
@@ -14,20 +19,20 @@ class Main extends Component {
       messages: [
         {
           id: uuid.v4(),
-          text: "Mensaje del tweet",
-          picture: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAgLAAAAJGE0ZTI5YjA4LWRjMzEtNDAxOS1iMDE1LTE2MDc3MDI1YjM5ZA.jpg",
-          displayName: "Rafael Melón",
-          username: "Rafael Melón",
+          text: 'Mensaje del tweet',
+          picture: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAgLAAAAJGE0ZTI5YjA4LWRjMzEtNDAxOS1iMDE1LTE2MDc3MDI1YjM5ZA.jpg',
+          displayName: 'Rafael Melón',
+          username: 'Rafael Melón',
           date: Date.now() - 180000,
           retweets: 0,
           favorites: 0
         },
         {
           id: uuid.v4(),
-          text: "Este es un nuveo Mensaje",
-          picture: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAgLAAAAJGE0ZTI5YjA4LWRjMzEtNDAxOS1iMDE1LTE2MDc3MDI1YjM5ZA.jpg",
-          displayName: "Rafael Melón",
-          username: "Rafael Melón",
+          text: 'Este es un nuveo Mensaje',
+          picture: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAgLAAAAJGE0ZTI5YjA4LWRjMzEtNDAxOS1iMDE1LTE2MDc3MDI1YjM5ZA.jpg',
+          displayName: 'Rafael Melón',
+          username: 'Rafael Melón',
           date: Date.now() - 1800000,
           retweets: 0,
           favorites: 0
@@ -43,7 +48,7 @@ class Main extends Component {
   }
 
   handleSendText (event) {
-    event.preventDefault();
+    event.preventDefault()
     let newMessage = {
       id: uuid.v4(),
       username: this.props.user.email.split('@')[0],
@@ -54,26 +59,26 @@ class Main extends Component {
     }
     this.setState({
       messages: this.state.messages.concat([newMessage]),
-      openText: false,
-    });
+      openText: false
+    })
   }
 
   handleCloseText (event) {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({ openText: false })
   }
 
   handleOpenText (event) {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({ openText: true })
   }
 
   handleRetweet (msgId) {
     let alreadyRetweeted = this.state.user.retweets.filter(rt => rt === msgId)
 
-    if(alreadyRetweeted.length === 0){
+    if (alreadyRetweeted.length === 0) {
       let messages = this.state.messages.map(msg => {
-        if(msg.id === msgId) {
+        if (msg.id === msgId) {
           msg.retweets++
         }
         return msg
@@ -86,29 +91,27 @@ class Main extends Component {
         messages,
         user
       })
-
     }
   }
 
   handleFavorite (msgId) {
-    let alreadyFavorited = this.state.user.favorites.filter(fav => fav === msgId);
+    let alreadyFavorited = this.state.user.favorites.filter(fav => fav === msgId)
 
-    if(alreadyFavorited.length === 0){
+    if (alreadyFavorited.length === 0) {
       let messages = this.state.messages.map(msg => {
-        if(msg.id === msgId){
+        if (msg.id === msgId) {
           msg.favorites++
         }
         return msg
       })
 
       let user = Object.assign({}, this.state.user)
-      user.favorites.push(msgId);
+      user.favorites.push(msgId)
 
       this.setState({
         messages,
         user
       })
-
     }
   }
 
@@ -120,7 +123,7 @@ class Main extends Component {
   }
 
   renderOpenText () {
-    if(this.state.openText){
+    if (this.state.openText) {
       return (
         <InputText
           onSendText={ this.handleSendText }
@@ -131,7 +134,7 @@ class Main extends Component {
     }
   }
 
-  render() {
+  render () {
     return (
       <div>
         <ProfileBar
@@ -151,4 +154,6 @@ class Main extends Component {
   }
 }
 
-export default Main;
+Main.propTypes = propTypes
+
+export default Main

@@ -1,11 +1,24 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import moment from 'moment';
-
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router'
+import moment from 'moment'
 import styles from './message.css'
 
+const propTypes = {
+  username: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  displayName: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  onFavorite: PropTypes.func.isRequired,
+  onRetweet: PropTypes.func.isRequired,
+  onReplyTweet: PropTypes.func.isRequired,
+  date: PropTypes.number.isRequired,
+  numRetweets: PropTypes.number.isRequired,
+  numFavorites: PropTypes.number.isRequired
+}
+
 class Message extends Component {
-  constructor(props){
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -31,7 +44,7 @@ class Message extends Component {
     })
   }
 
-  render(){
+  render () {
     let dateFormat = moment(this.props.date).fromNow()
     let userLink = `/user/${this.props.username}`
     return (
@@ -74,4 +87,6 @@ class Message extends Component {
   }
 }
 
-export default Message;
+Message.propTypes = propTypes
+
+export default Message

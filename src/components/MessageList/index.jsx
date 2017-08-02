@@ -1,36 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import Message from '../Message';
-import styles from './message-list.css';
+import Message from '../Message'
+import styles from './message-list.css'
 
-class MessageList extends Component {
-  constructor(props){
-    super(props)
-  }
-
-  render(){
-    return (
-      <div className={ styles.root }>
-        { this.props.messages.map(msg => {
-          return (
-            <Message
-              key={ msg.id }
-              text={ msg.text }
-              picture={ msg.picture }
-              displayName={ msg.displayName }
-              username={ msg.username }
-              date={ msg.date }
-              numRetweets={ msg.retweets }
-              numFavorites={ msg.favorites }
-              onReplyTweet={ () => this.props.onReplyTweet(msg.id, msg.username ) }
-              onRetweet={ () => this.props.onRetweet(msg.id) }
-              onFavorite={ () => this.props.onFavorite(msg.id) }
-            />
-          )
-        }).reverse() }
-      </div>
-    )
-  }
+const propTypes = {
+  messages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onRetweet: PropTypes.func.isRequired,
+  onFavorite: PropTypes.func.isRequired,
+  onReplyTweet: PropTypes.func.isRequired
 }
 
-export default MessageList;
+function MessageList ({ messages, onRetweet, onFavorite, onReplyTweet }) {
+  return (
+    <div className={ styles.root }>
+      { messages.map(msg => {
+        return (
+          <Message
+            key={ msg.id }
+            text={ msg.text }
+            picture={ msg.picture }
+            displayName={ msg.displayName }
+            username={ msg.username }
+            date={ msg.date }
+            numRetweets={ msg.retweets }
+            numFavorites={ msg.favorites }
+            onReplyTweet={ () => onReplyTweet(msg.id, msg.username) }
+            onRetweet={ () => onRetweet(msg.id) }
+            onFavorite={ () => onFavorite(msg.id) }
+          />
+        )
+      }).reverse() }
+    </div>
+  )
+}
+
+MessageList.propTypes = propTypes
+
+export default MessageList
