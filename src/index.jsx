@@ -2,8 +2,6 @@ import React from 'react'
 import { render } from 'react-dom'
 import firebase from 'firebase'
 
-import App from './components/App'
-
 firebase.initializeApp({
   apiKey: 'AIzaSyCX7t-2TaUkpu5mJm7fQiTOq_oEQUFIK00',
   authDomain: 'curso-react-9ef15.firebaseapp.com',
@@ -12,5 +10,7 @@ firebase.initializeApp({
   storageBucket: 'curso-react-9ef15.appspot.com',
   messagingSenderId: '435209830919'
 })
+
+import App from './components/App'
 
 render(<App />, document.getElementById('root'))
