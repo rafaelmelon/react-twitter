@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { HashRouter, Match } from 'react-router'
+import { HashRouter, Route } from 'react-router-dom'
 import firebase from 'firebase'
 import 'normalize-css'
 
@@ -10,8 +10,8 @@ import Profile from '../Profile'
 import Login from '../Login'
 
 class App extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       user: null
     }
@@ -50,7 +50,7 @@ class App extends Component {
       <HashRouter>
         <div>
           <Header />
-          <Match exactly pattern='/' render={ () => {
+          <Route exact path='/' render={ () => {
             if (this.state.user) {
               return (
                 <Main
@@ -65,7 +65,7 @@ class App extends Component {
             }
           } } />
 
-          <Match pattern='/profile' render={ () => {
+          <Route path='/profile' render={ () => {
             return (
               <Profile
                 picture={ this.state.user.photoURL }
@@ -77,7 +77,7 @@ class App extends Component {
             )
           }} />
 
-          <Match pattern='/user/:username' render={ ({ params }) => {
+          <Route path='/user/:username' render={ ({ params }) => {
             return (
               <Profile
                 displayName={ params.username }
@@ -91,4 +91,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default App;

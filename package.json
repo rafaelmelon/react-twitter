@@ -1,16 +1,20 @@
 {
-  "name": "reacttr",
+  "name": "twitter",
   "version": "1.0.0",
-  "description": "Clon de twitter con React para propósitos educativos",
+  "description": "Twitter clone with React for educational purposes",
   "main": "/build/app.js",
+  "author": "Rafael Melón <info@rafaelmelon.es> (http://rafaelmelon.es/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rafaelmelon/twitter.git"
+  },
   "scripts": {
     "production": "webpack -p",
     "build": "webpack --colors",
     "serve": "webpack-dev-server --content-base build/ --colors --progress",
     "start": "npm run build && npm run serve"
   },
-  "author": "Rafael Melón",
-  "license": "MIT",
   "devDependencies": {
     "babel-cli": "6.18.0",
     "babel-loader": "6.2.7",
@@ -30,8 +34,8 @@
     "prop-types": "^15.5.10",
     "react": "15.3.2",
     "react-dom": "15.3.2",
-    "react-router": "^4.0.0-alpha.4",
-    "react-router-dom": "4.1.1",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "uuid": "^2.0.3"
   }
 }
